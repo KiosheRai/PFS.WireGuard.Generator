@@ -36,3 +36,9 @@ build/
 *.vs
 .vs/
 
+#IDE
+*.user
+.kdev4/
+*.kdev4
+
+
