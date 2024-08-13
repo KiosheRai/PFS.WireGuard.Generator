@@ -3,23 +3,26 @@
 #include <string>
 #include <vector>
 
-class User;
-
-class Server
+namespace PFSWireGuardGeneratorCore
 {
-    public:
-        Server(){};
+    class User;
 
-        unsigned int getListenPort() { return _listen_port; }
+    class Server
+    {
+        public:
+            Server();
 
-    private:
-        std::string _private_key;
-        std::string _public_key;
-        std::string _address;
+            unsigned int getListenPort() { return _listen_port; }
 
-        unsigned int _listen_port;
-        std::vector<std::string> _post_ups;
-        std::vector<std::string> _pre_downs;
+        private:
+            std::string _private_key;
+            std::string _public_key;
+            std::string _address;
 
-        std::vector<User> _users;
-};
+            unsigned int _listen_port;
+            std::vector<std::string> _post_ups;
+            std::vector<std::string> _pre_downs;
+
+            std::vector<User> _users;
+    };
+}
