@@ -3,8 +3,12 @@ cmake_minimum_required(VERSION 3.12)
 set(CORE_PROJECT_NAME PFS.WireGuard.Generator.Core)
 
 set(CORE_PUBLIC_INCLUDES
-    ${CMAKE_CURRENT_SOURCE_DIR}/includes/Models/Server.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/includes/Models/Client.hpp
+    includes/Models/Server.hpp
+    includes/Models/Client.hpp
+
+    includes/Configurator/Configurator.hpp
+    includes/Configurator/Block.hpp
+    includes/Configurator/FileIO.hpp
 )
 
 set(CORE_PRIVATE_INCLUDES
@@ -12,8 +16,12 @@ set(CORE_PRIVATE_INCLUDES
 )
 
 set(CORE_PRIVATE_SOURSES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Models/Server.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Models/Client.cpp
+    src/Models/Server.cpp
+    src/Models/Client.cpp
+
+    src/Configurator/Configurator.cpp
+    src/Configurator/Block.cpp
+    src/Configurator/FileIO.cpp
 )
 
 set(CORE_ALL_SOURCES
