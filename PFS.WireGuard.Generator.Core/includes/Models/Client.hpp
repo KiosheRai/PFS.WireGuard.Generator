@@ -3,9 +3,15 @@
 #include <string>
 #include <vector>
 
+#ifdef PFSWGGENERATORCORE_EXPORTS
+#define PFSWGGENERATORCORE_API __declspec(dllexport)
+#else
+#define PFSWGGENERATORCORE_API __declspec(dllimport)
+#endif
+
 namespace PFSWireGuardGeneratorCore
 {
-    class Client
+    class PFSWGGENERATORCORE_API Client
     {
         public:
             Client();

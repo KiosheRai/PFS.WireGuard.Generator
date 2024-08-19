@@ -1,14 +1,15 @@
 #include <iostream>
-
-#include <Models/Client.hpp>
-#include <Configurator/FileIO.hpp>
-#include <Configurator/Block.hpp>
 #include <sys/stat.h>
+#include <filesystem>
+
+#include "ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp"
 
 using namespace PFSWireGuardGeneratorCore;
 
 int main(int argc, char* argv[])
 {
+    std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
+
     Client client;
 
     std::cout << "User name -> "<< client.getUserName() << std::endl;
@@ -25,19 +26,18 @@ int main(int argc, char* argv[])
     std::cout << "Persistent keepalive -> " << client.getPersistentKeepalive() << std::endl;
 
     std::cin.get();
-
+    
 
     try
     {
-        auto kekes = FileIO::getTextFromFile("kekes.txt");
+        auto kekes = PFSWireGuardGeneratorCoreAPI::getTextFromFile("kekes.txt");
         std::cout << kekes << std::endl;
     }
     catch (const std::ios_base::failure& e)
     {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
-
-
+    
     Block block0 =
     {
         Attribute::Peer,
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
     {
         try
         {
-            FileIO::writeBlockToFile("kekes.txt", block);
+            PFSWireGuardGeneratorCoreAPI::writeBlockToFile("kekes.txt", block);
         }
         catch(const std::ios_base::failure& e)
         {

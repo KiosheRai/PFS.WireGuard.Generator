@@ -25,8 +25,8 @@ namespace PFSWireGuardGeneratorCore
         _attribute = attribute;
     }
 
-    void Block::setProps(Props &props)
+    void Block::setProps(Props props)
     {
-        _props = props;
+        _props = std::move(props);
     }
 }
