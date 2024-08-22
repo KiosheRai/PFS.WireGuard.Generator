@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include <windows.h>
 
 BOOL APIENTRY DllMain(HMODULE hModule,
@@ -21,3 +23,5 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     }
     return TRUE;
 }
+
+#endif

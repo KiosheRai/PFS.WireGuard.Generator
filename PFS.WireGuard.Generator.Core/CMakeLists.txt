@@ -10,6 +10,7 @@ set(CORE_PUBLIC_INCLUDES
     includes/Configurator/Block.hpp
     includes/Configurator/FileIO.hpp
 
+
     includes/ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp
 )
 
@@ -25,10 +26,34 @@ set(CORE_PRIVATE_SOURCES
     src/ExportLibrary/dllmain.cpp
 )
 
-# Создание библиотеки
+if(WIN32)
+    list(APPEND CORE_PUBLIC_INCLUDES
+        includes/ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp
+    )
+
+    list(APPEND CORE_PRIVATE_SOURCES
+        src/ExportLibrary/PFSWireGuardGeneratorCoreAPI.cpp
+        src/ExportLibrary/dllmain.cpp
+    )
+endif()
+
 add_library(${CORE_PROJECT_NAME} SHARED
     ${CORE_PUBLIC_INCLUDES}
     ${CORE_PRIVATE_SOURCES}
+)
+
+message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+message(STATUS "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
+
+if (WIN32)
+    set(UI_BINARY_DIR "$<CONFIG>") #CHANGE FOR WINDOWS!!!
+else()
+    set(UI_BINARY_DIR "$/bin")
+endif()
+
+add_custom_command(TARGET ${CORE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:${CORE_PROJECT_NAME}> ${CMAKE_BINARY_DIR}/${UI_BINARY_DIR}
 )
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
@@ -42,3 +67,8 @@ target_include_directories(${CORE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_D
 target_compile_features(${CORE_PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_compile_definitions(${CORE_PROJECT_NAME} PRIVATE PFSWGGENERATORCORE_EXPORTS)
+
+add_custom_command(TARGET ${CORE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:${CORE_PROJECT_NAME}> ${UI_BINARY_DIR}
+)
