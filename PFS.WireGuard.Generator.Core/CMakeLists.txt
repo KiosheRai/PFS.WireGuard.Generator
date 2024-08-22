@@ -26,17 +26,6 @@ set(CORE_PRIVATE_SOURCES
     src/ExportLibrary/dllmain.cpp
 )
 
-if(WIN32)
-    list(APPEND CORE_PUBLIC_INCLUDES
-        includes/ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp
-    )
-
-    list(APPEND CORE_PRIVATE_SOURCES
-        src/ExportLibrary/PFSWireGuardGeneratorCoreAPI.cpp
-        src/ExportLibrary/dllmain.cpp
-    )
-endif()
-
 add_library(${CORE_PROJECT_NAME} SHARED
     ${CORE_PUBLIC_INCLUDES}
     ${CORE_PRIVATE_SOURCES}
