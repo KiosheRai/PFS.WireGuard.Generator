@@ -4,11 +4,23 @@
 #include <string>
 #include <unordered_map>
 
-#define Props std::vector<std::pair<std::string, std::string>>
+using Props = std::vector<std::pair<std::string, std::string>>;
+
+#ifndef PFSWGGENERATORCORE_API
+    #ifdef _WIN32
+        #ifdef PFSWGGENERATORCORE_EXPORTS
+            #define PFSWGGENERATORCORE_API __declspec(dllexport)
+        #else
+            #define PFSWGGENERATORCORE_API __declspec(dllimport)
+        #endif
+    #else
+        #define PFSWGGENERATORCORE_API
+    #endif
+#endif
 
 namespace PFSWireGuardGeneratorCore
 {
-    enum class Attribute
+    enum class PFSWGGENERATORCORE_API Attribute
     {
         Interface,
         Peer,
@@ -22,7 +34,7 @@ namespace PFSWireGuardGeneratorCore
         {Attribute::Undefined, "[Undefined]"}
     };
 
-    class Block
+    class PFSWGGENERATORCORE_API Block
     {
         public:
             Block();
@@ -33,7 +45,7 @@ namespace PFSWireGuardGeneratorCore
             Props getProps() const;
 
             void setAttribut(Attribute attribute);
-            void setProps(Props &props);
+            void setProps(Props props);
 
         private:
             Attribute _attribute;
