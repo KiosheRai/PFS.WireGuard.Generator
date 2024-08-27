@@ -4,11 +4,29 @@
 #include <Configurator/FileIO.hpp>
 #include <Configurator/Block.hpp>
 #include <sys/stat.h>
+#include <ApiCommands/BashCommand.hpp>
+
+#include <Common/StringExtentions.hpp>
 
 using namespace PFSWireGuardGeneratorCore;
 
 int main(int argc, char* argv[])
 {
+    std::string format = "  {0} command, {0} tee {1}, {2}  ";
+
+    std::string result = formatString(format, { "echo", "output.txt", "23"});
+
+    std::cout << result << std::endl;
+
+    result = trimString(format);
+
+    std::cout << result << std::endl;
+
+    BashCommand command(false);
+
+    std::string s = "Gixal";
+    std::cout << command.generatePrivateKey(s) << std::endl;
+
     Client client;
 
     std::cout << "User name -> "<< client.getUserName() << std::endl;

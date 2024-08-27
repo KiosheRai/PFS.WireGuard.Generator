@@ -3,8 +3,14 @@ cmake_minimum_required(VERSION 3.12)
 set(CORE_PROJECT_NAME PFS.WireGuard.Generator.Core)
 
 set(CORE_PUBLIC_INCLUDES
+    includes/ApiCommands/BashCommand.hpp
+    includes/ApiCommands/CmdCommand.hpp
+    includes/ApiCommands/Command.hpp
+
     includes/Models/Server.hpp
     includes/Models/Client.hpp
+
+    includes/Common/StringExtentions.hpp
 
     includes/Configurator/Configurator.hpp
     includes/Configurator/Block.hpp
@@ -16,8 +22,13 @@ set(CORE_PRIVATE_INCLUDES
 )
 
 set(CORE_PRIVATE_SOURSES
+    src/ApiCommands/BashCommand.cpp
+    src/ApiCommands/CmdCommand.cpp
+
     src/Models/Server.cpp
     src/Models/Client.cpp
+
+    src/Common/StringExtentions.cpp
 
     src/Configurator/Configurator.cpp
     src/Configurator/Block.cpp
@@ -30,7 +41,7 @@ set(CORE_ALL_SOURCES
     ${CORE_PRIVATE_SOURSES}
 )
 
-add_library(${CORE_PROJECT_NAME} SHARED
+add_library(${CORE_PROJECT_NAME} STATIC
     ${CORE_ALL_SOURCES}
 )
 
