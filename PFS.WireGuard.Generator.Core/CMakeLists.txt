@@ -35,7 +35,7 @@ message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 message(STATUS "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
 
 if (WIN32)
-    set(UI_BINARY_DIR "$<CONFIG>") #CHANGE FOR WINDOWS!!!
+    set(UI_BINARY_DIR "/bin")
 else()
     set(UI_BINARY_DIR "$/bin")
 endif()
