@@ -16,6 +16,7 @@ namespace PFSWireGuardGeneratorCore
 
     std::string BashCommand::executeCommand(std::string& command) 
     {
+        return "";
         //TODO: Implement here
     }
 

@@ -1,31 +1,14 @@
 #include <iostream>
-
-#include <Models/Client.hpp>
-#include <Configurator/FileIO.hpp>
-#include <Configurator/Block.hpp>
 #include <sys/stat.h>
-#include <ApiCommands/BashCommand.hpp>
+#include <filesystem>
 
-#include <Common/StringExtentions.hpp>
+#include "ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp"
 
 using namespace PFSWireGuardGeneratorCore;
 
 int main(int argc, char* argv[])
 {
-    std::string format = "  {0} command, {0} tee {1}, {2}  ";
-
-    std::string result = formatString(format, { "echo", "output.txt", "23"});
-
-    std::cout << result << std::endl;
-
-    result = trimString(format);
-
-    std::cout << result << std::endl;
-
-    BashCommand command(false);
-
-    std::string s = "Gixal";
-    std::cout << command.generatePrivateKey(s) << std::endl;
+    std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
 
     Client client;
 
@@ -43,19 +26,18 @@ int main(int argc, char* argv[])
     std::cout << "Persistent keepalive -> " << client.getPersistentKeepalive() << std::endl;
 
     std::cin.get();
-
+    
 
     try
     {
-        auto kekes = FileIO::getTextFromFile("kekes.txt");
+        auto kekes = PFSWireGuardGeneratorCoreAPI::getTextFromFile("kekes.txt");
         std::cout << kekes << std::endl;
     }
     catch (const std::ios_base::failure& e)
     {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
-
-
+    
     Block block0 =
     {
         Attribute::Peer,
@@ -86,7 +68,7 @@ int main(int argc, char* argv[])
     {
         try
         {
-            FileIO::writeBlockToFile("kekes.txt", block);
+            PFSWireGuardGeneratorCoreAPI::writeBlockToFile("kekes.txt", block);
         }
         catch(const std::ios_base::failure& e)
         {
