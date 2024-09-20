@@ -18,7 +18,8 @@
 
 namespace PFSWireGuardGeneratorCoreAPI
 {
-    extern "C" {
+    extern "C"
+    {
         PFSWGGENERATORCORE_API void writeBlockToFile(const char* file_name, PFSWireGuardGeneratorCore::Block& block);
         PFSWGGENERATORCORE_API std::string getTextFromFile(const char* file_name);
     }

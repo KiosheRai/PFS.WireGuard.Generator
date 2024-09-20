@@ -7,6 +7,7 @@ set(CORE_PUBLIC_INCLUDES
     includes/Models/Client.hpp
 
     includes/Configurator/Configurator.hpp
+    includes/Configurator/Parser.hpp
     includes/Configurator/Block.hpp
     includes/Configurator/FileIO.hpp
 
@@ -19,6 +20,7 @@ set(CORE_PRIVATE_SOURCES
     src/Models/Client.cpp
 
     src/Configurator/Configurator.cpp
+    src/Configurator/Parser.cpp
     src/Configurator/Block.cpp
     src/Configurator/FileIO.cpp
 
@@ -52,6 +54,8 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 
 target_include_directories(${CORE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/includes)
 target_include_directories(${CORE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+target_include_directories(${CORE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../Libs)
 
 target_compile_features(${CORE_PROJECT_NAME} PUBLIC cxx_std_17)
 

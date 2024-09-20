@@ -43,12 +43,15 @@ namespace PFSWireGuardGeneratorCore
             Attribute getAttribute() const;
             std::string getAttributeToString();
             Props getProps() const;
+            std::string getDescription();
 
             void setAttribut(Attribute attribute);
             void setProps(Props props);
+            void setDescription(std::string description);
 
         private:
             Attribute _attribute;
             Props _props;
+            std::string _description;
     };
 }
