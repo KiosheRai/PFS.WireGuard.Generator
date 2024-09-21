@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Configurator/FileIO.hpp"
-#include "Models/Client.hpp"
-#include "Models/Server.hpp"
+#include "Configurator/Configurator.hpp"
 
 #ifndef PFSWGGENERATORCORE_API
     #ifdef _WIN32
@@ -20,7 +18,6 @@ namespace PFSWireGuardGeneratorCoreAPI
 {
     extern "C"
     {
-        PFSWGGENERATORCORE_API void writeBlockToFile(const char* file_name, PFSWireGuardGeneratorCore::Block& block);
-        PFSWGGENERATORCORE_API std::string getTextFromFile(const char* file_name);
+
     }
 }

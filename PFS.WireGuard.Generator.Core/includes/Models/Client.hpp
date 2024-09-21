@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "boost/asio/ip/address_v4.hpp"
+#include "asio/ip/address_v4.hpp"
 
 #ifndef PFSWGGENERATORCORE_API
     #ifdef _WIN32

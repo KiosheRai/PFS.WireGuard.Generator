@@ -4,7 +4,7 @@ namespace PFSWireGuardGeneratorCore
 {
     Server::Server() :
         _private_key(""), _public_key(""), _address("10.8.0.1/24"),
-        _start_ip(boost::asio::ip::address_v4::from_string("10.8.0.1")), _listen_port("51820"),
+        _start_ip(asio::ip::address_v4::from_string("10.8.0.1")), _listen_port("51820"),
         _post_ups {"ufw route allow in on wg0 out on enp1s0",
             "iptables -t nat -I POSTROUTING -o enp1s0 -j MASQUERADE"},
         _pre_downs {"ufw route delete allow in on wg0 out on enp1s0",
@@ -56,7 +56,7 @@ namespace PFSWireGuardGeneratorCore
     {
         uint32_t ip_num = _start_ip.to_uint();
         ip_num++;
-        boost::asio::ip::address_v4 new_ip(ip_num);
+        asio::ip::address_v4 new_ip(ip_num);
         _start_ip = new_ip;
 
         return new_ip.to_string();

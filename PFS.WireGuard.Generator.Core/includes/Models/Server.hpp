@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Models/Client.hpp"
-#include "boost/asio/ip/address_v4.hpp"
+#include "asio/ip/address_v4.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
@@ -32,7 +32,7 @@ namespace PFSWireGuardGeneratorCore
 
             std::string _address;
 
-            boost::asio::ip::address_v4 _start_ip;
+            asio::ip::address_v4 _start_ip;
             std::string incrementIP();
 
             std::string _listen_port;

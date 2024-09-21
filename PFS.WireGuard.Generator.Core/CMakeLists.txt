@@ -54,8 +54,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 
 target_include_directories(${CORE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/includes)
 target_include_directories(${CORE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-target_include_directories(${CORE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../Libs)
+target_include_directories(${CORE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../Libs/asio/include)
 
 target_compile_features(${CORE_PROJECT_NAME} PUBLIC cxx_std_17)
 
