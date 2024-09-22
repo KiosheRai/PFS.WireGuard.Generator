@@ -4,9 +4,9 @@
 #include <string>
 #include <unordered_map>
 
-using Props = std::vector<std::pair<std::string, std::string>>;
-
 #include "ExportLibrary/PFSWGGeneratorCoreExport.hpp"
+
+using Props = std::vector<std::pair<std::string, std::string>>;
 
 namespace PFSWireGuardGeneratorCore
 {

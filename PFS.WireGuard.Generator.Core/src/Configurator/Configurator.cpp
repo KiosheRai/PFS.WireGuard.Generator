@@ -9,6 +9,8 @@ namespace PFSWireGuardGeneratorCore
     {
         FileIO::createFile(file_name);
 
+        //CommandAPI::asjdasdj()
+
         auto client_blocks = Parser::serialize(client);
 
         for (auto& block : client_blocks)
