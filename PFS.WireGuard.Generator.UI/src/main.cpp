@@ -22,5 +22,8 @@ int main(int argc, char* argv[])
     Configurator::configureClientToFile("Client_2.txt", client2);
     Configurator::configureClientToFile("Client_3.txt", client3);
 
+    BashCommand command;
+    std::cout << "Comand result: " << command.executeCommand("echo \"Hello World\"") << std::endl;
+
     return 0;
  }
