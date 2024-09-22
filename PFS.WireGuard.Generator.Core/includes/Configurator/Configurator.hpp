@@ -1,18 +1,25 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
-#include "Configurator/Block.hpp"
+#include "Configurator/FileIO.hpp"
+#include "Configurator/Parser.hpp"
+#include "Models/Server.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
-    class Configurator
+    class PFSWGGENERATORCORE_API Configurator
     {
         public:
-            Configurator();
+            Configurator() = delete;
 
+            static bool configureClientToFile(const std::string& file_name,const Client& client);
+            static bool configureServerToFile(const std::string& file_name,const Server& server);
+
+            static bool getBlocksFromClientFile();
+            static bool getBlocksFromServerFile();
 
         private:
-            std::vector<Block> _blocks;
     };
 }

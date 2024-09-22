@@ -35,21 +35,34 @@ namespace PFSWireGuardGeneratorCore
             throw std::ios_base::failure("File does not exist: " + std::string(file_name));
         }
 
-
         std::ofstream out(file_name, std::ios::app);
 
         if(out.is_open())
         {
-            out << std::endl;
-
             out << block.getAttributeToString() << std::endl;
 
             for (const auto& prop : block.getProps())
             {
                 out << prop.first << prop.second << std::endl;
             }
+
+            out << std::endl;
         }
 
         out.close();
+    }
+
+    bool FileIO::createFile(const std::string& file_name, std::string path)
+    {
+        std::ofstream out(path + file_name, std::ios::out);
+
+        if (!out)
+        {
+            std::cerr << "Error: Unable to create file: " << path + file_name << std::endl;
+            return false;
+        }
+
+        out.close();
+        return true;
     }
 }
