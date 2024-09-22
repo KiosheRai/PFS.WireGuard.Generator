@@ -12,6 +12,7 @@ set(CORE_PUBLIC_INCLUDES
     includes/Configurator/FileIO.hpp
 
 
+    includes/ExportLibrary/PFSWGGeneratorCoreExport.hpp
     includes/ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp
 )
 

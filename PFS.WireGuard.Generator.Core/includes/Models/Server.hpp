@@ -8,8 +8,7 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-
-    class Server
+    class PFSWGGENERATORCORE_API Server
     {
         public:
             Server();

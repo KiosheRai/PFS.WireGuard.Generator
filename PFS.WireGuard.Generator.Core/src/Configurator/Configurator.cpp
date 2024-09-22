@@ -5,7 +5,7 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-    bool Configurator::configureClientToFile(std::string file_name,const Client& client)
+    bool Configurator::configureClientToFile(const std::string& file_name,const Client& client)
     {
         FileIO::createFile(file_name);
 
@@ -26,7 +26,7 @@ namespace PFSWireGuardGeneratorCore
         return 1;
     }
 
-    bool Configurator::configureServerToFile(std::string file_name,const Server& server)
+    bool Configurator::configureServerToFile(const std::string& file_name,const Server& server)
     {
         FileIO::createFile(file_name);
 
@@ -41,6 +41,7 @@ namespace PFSWireGuardGeneratorCore
             catch(const std::ios_base::failure& e)
             {
                 std::cerr << "Exception: " << e.what() << std::endl;
+                return 0;
             }
         }
 

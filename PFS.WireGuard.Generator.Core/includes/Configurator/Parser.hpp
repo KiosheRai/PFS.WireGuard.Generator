@@ -2,11 +2,10 @@
 
 #include "Configurator/Block.hpp"
 #include "Models/Server.hpp"
-#include "Models/Client.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
-    class Parser
+    class PFSWGGENERATORCORE_API Parser
     {
         public:
             Parser() = delete;

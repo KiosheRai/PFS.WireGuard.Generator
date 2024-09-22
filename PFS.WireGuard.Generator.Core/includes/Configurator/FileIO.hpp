@@ -4,13 +4,13 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-    class FileIO
+    class PFSWGGENERATORCORE_API FileIO
     {
         public:
             static std::string getTextFromFile(const char* file_name);
             static void writeBlockToFile(const char* file_name, Block& block);
 
-            static void createFile(std::string file_name, std::string path = "");
+            static bool createFile(const std::string& file_name, std::string path = "");
 
         private:
     };

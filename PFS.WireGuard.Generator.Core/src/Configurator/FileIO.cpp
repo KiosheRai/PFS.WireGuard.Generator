@@ -52,9 +52,17 @@ namespace PFSWireGuardGeneratorCore
         out.close();
     }
 
-    void FileIO::createFile(std::string file_name, std::string path)
+    bool FileIO::createFile(const std::string& file_name, std::string path)
     {
         std::ofstream out(path + file_name, std::ios::out);
+
+        if (!out)
+        {
+            std::cerr << "Error: Unable to create file: " << path + file_name << std::endl;
+            return false;
+        }
+
         out.close();
+        return true;
     }
 }

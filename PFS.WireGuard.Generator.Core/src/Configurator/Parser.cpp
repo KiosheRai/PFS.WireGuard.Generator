@@ -15,7 +15,6 @@ namespace PFSWireGuardGeneratorCore
         Attribute currentAttribute;
         Block currentBlock;
 
-
         while (std::getline(stream, line))
         {
             if (line == "[Interface]")

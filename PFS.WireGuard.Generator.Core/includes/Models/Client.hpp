@@ -4,18 +4,7 @@
 #include <vector>
 
 #include "asio/ip/address_v4.hpp"
-
-#ifndef PFSWGGENERATORCORE_API
-    #ifdef _WIN32
-        #ifdef PFSWGGENERATORCORE_EXPORTS
-            #define PFSWGGENERATORCORE_API __declspec(dllexport)
-        #else
-            #define PFSWGGENERATORCORE_API __declspec(dllimport)
-        #endif
-    #else
-        #define PFSWGGENERATORCORE_API
-    #endif
-#endif
+#include "ExportLibrary/PFSWGGeneratorCoreExport.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
@@ -30,13 +19,13 @@ namespace PFSWireGuardGeneratorCore
             std::string getPublicKey() const;
 
             std::string getServerPublicKey() const;
-            void setServerPublicKey(const std::string server_public_key);
+            void setServerPublicKey(const std::string& server_public_key);
 
             std::string getAddress() const;
-            void setAddress(std::string address);
+            void setAddress(const std::string& address);
 
             const std::vector<std::string>& getAllowedIps() const;
-            void setAllowedIps(std::string);
+            void setAllowedIps(std::vector<std::string>& allowed_ips);
 
             std::string getDNS() const;
 

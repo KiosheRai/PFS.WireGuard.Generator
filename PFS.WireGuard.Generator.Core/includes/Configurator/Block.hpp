@@ -6,17 +6,7 @@
 
 using Props = std::vector<std::pair<std::string, std::string>>;
 
-#ifndef PFSWGGENERATORCORE_API
-    #ifdef _WIN32
-        #ifdef PFSWGGENERATORCORE_EXPORTS
-            #define PFSWGGENERATORCORE_API __declspec(dllexport)
-        #else
-            #define PFSWGGENERATORCORE_API __declspec(dllimport)
-        #endif
-    #else
-        #define PFSWGGENERATORCORE_API
-    #endif
-#endif
+#include "ExportLibrary/PFSWGGeneratorCoreExport.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
@@ -41,13 +31,13 @@ namespace PFSWireGuardGeneratorCore
             Block(Attribute attribute, Props props);
 
             Attribute getAttribute() const;
-            std::string getAttributeToString();
+            std::string getAttributeToString() const;
             Props getProps() const;
-            std::string getDescription();
+            std::string getDescription() const;
 
-            void setAttribut(Attribute attribute);
-            void setProps(Props props);
-            void setDescription(std::string description);
+            void setAttribut(const Attribute attribute);
+            void setProps(const Props props);
+            void setDescription(const std::string& description);
 
         private:
             Attribute _attribute;
