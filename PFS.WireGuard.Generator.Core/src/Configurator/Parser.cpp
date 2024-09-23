@@ -81,7 +81,7 @@ namespace PFSWireGuardGeneratorCore
                 {"PublicKey = ", client.getServerPublicKey()},
                 {"AllowedIPs = ", client.getAllowedIps().back()},
                 {"Endpoint = ", client.getEndpoint()},
-                {"PersistentKeepalive", client.getPersistentKeepalive()}
+                {"PersistentKeepalive = ", client.getPersistentKeepalive()}
             }
         };
 
@@ -97,7 +97,7 @@ namespace PFSWireGuardGeneratorCore
             Attribute::Interface,
             {
                 {"PrivateKey = ", server.getPrivateKey()},
-                {"Address = ", server.getAdress()},
+                {"Address = ", server.getAddress()},
                 {"ListenPort = ", server.getListenPort()},
                 {"PostUp = ","ufw route allow in on wg0 out on enp1s0"},
                 {"PostUp = ","iptables -t nat -I POSTROUTING -o enp1s0 -j MASQUERADE"},

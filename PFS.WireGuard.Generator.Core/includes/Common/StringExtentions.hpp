@@ -7,7 +7,7 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-    class StringExtention
+    class PFSWGGENERATORCORE_API StringExtention
     {
         public:
             StringExtention() = delete;

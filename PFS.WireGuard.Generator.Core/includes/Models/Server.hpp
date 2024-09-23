@@ -11,11 +11,20 @@ namespace PFSWireGuardGeneratorCore
     class PFSWGGENERATORCORE_API Server
     {
         public:
-            Server();
+            Server() = delete;
+            Server(const std::string server_name);
+
+            std::string getName() const;
+            void setName(const std::string& server_name);
 
             std::string getPrivateKey() const;
+            void setPrivateKey(const std::string& private_key);
+
             std::string getPublicKey() const;
-            std::string getAdress() const;
+            void setPublicKey(const std::string& public_key);
+
+            std::string getAddress() const;
+            void setAddress(const std::string address);
 
             std::string getListenPort() const;
             std::vector<std::string> getPostUps() const;
@@ -26,6 +35,7 @@ namespace PFSWireGuardGeneratorCore
             void addClient(Client& client);
 
         private:
+            std::string _server_name;
             std::string _private_key;
             std::string _public_key;
 

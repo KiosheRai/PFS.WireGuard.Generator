@@ -2,8 +2,8 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-    Server::Server() :
-        _private_key(""), _public_key(""), _address("10.8.0.1/24"),
+    Server::Server(const std::string server_name) :
+        _server_name(server_name), _private_key(""), _public_key(""), _address("10.8.0.1/24"),
         _start_ip(asio::ip::address_v4::from_string("10.8.0.1")), _listen_port("51820"),
         _post_ups {"ufw route allow in on wg0 out on enp1s0",
             "iptables -t nat -I POSTROUTING -o enp1s0 -j MASQUERADE"},
@@ -12,9 +12,24 @@ namespace PFSWireGuardGeneratorCore
         _clients{}
     { }
 
+    std::string Server::getName() const
+    {
+        return _server_name;
+    }
+
+    void Server::setName(const std::string& server_name)
+    {
+        _server_name = server_name;
+    }
+
     std::string Server::getPrivateKey() const
     {
         return _private_key;
+    }
+
+    void Server::setPrivateKey(const std::string& private_key)
+    {
+        _private_key = private_key;
     }
 
     std::string Server::getPublicKey() const
@@ -22,9 +37,19 @@ namespace PFSWireGuardGeneratorCore
         return _public_key;
     }
 
-    std::string Server::getAdress() const
+    void Server::setPublicKey(const std::string& public_key)
+    {
+        _public_key = public_key;
+    }
+
+    std::string Server::getAddress() const
     {
         return _address;
+    }
+
+    void Server::setAddress(const std::string address)
+    {
+        _address = address;
     }
 
     std::string Server::getListenPort() const

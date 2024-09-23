@@ -19,23 +19,22 @@ namespace PFSWireGuardGeneratorCore
 
     std::string BashCommand::executeCommand(const std::string& command)
     {
-        #if defined(_WIN32) || defined(_WIN64)
-            throw std::runtime_error("BashCommand is not supported on Windows.");
-        #else
-            std::array<char, 128> buffer;
-            std::string result;
+        std::array<char, 128> buffer;
+        std::string result;
 
-            std::unique_ptr<FILE, int(*)(FILE*)> pipe(popen(command.c_str(), "r"), pclose);
-            if (!pipe) {
-                throw std::runtime_error("popen() failed!");
-            }
+        std::unique_ptr<FILE, int(*)(FILE*)> pipe(popen(command.c_str(), "r"), pclose);
+        if (!pipe) {
+            throw std::runtime_error("popen() failed!");
+        }
 
-            while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-                result += buffer.data();
-            }
+        while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+            result += buffer.data();
+        }
 
-            return result;
-        #endif
+        if (!result.empty() && result.back() == '\n')
+            result.pop_back();
+
+        return result;
     }
 
     std::string BashCommand::generatePublicKey(const std::string& username)

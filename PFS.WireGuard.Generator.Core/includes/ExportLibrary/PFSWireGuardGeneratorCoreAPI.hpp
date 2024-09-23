@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Configurator/Configurator.hpp"
-#include "CommandAdapter/BashCommand.hpp"
-#include "CommandAdapter/CmdCommand.hpp"
+#include "CommandAdapter/AdapterAPI.hpp"
 
 namespace PFSWireGuardGeneratorCoreAPI
 {

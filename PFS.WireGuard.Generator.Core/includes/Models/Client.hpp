@@ -11,12 +11,17 @@ namespace PFSWireGuardGeneratorCore
     class PFSWGGENERATORCORE_API Client
     {
         public:
-            Client();
+            Client() = delete;
+
+            Client(const std::string user_name);
 
             std::string getUserName() const;
 
             std::string getPrivateKey() const;
+            void setPrivateKey(const std::string& private_key);
+
             std::string getPublicKey() const;
+            void setPublicKey(const std::string& public_key);
 
             std::string getServerPublicKey() const;
             void setServerPublicKey(const std::string& server_public_key);

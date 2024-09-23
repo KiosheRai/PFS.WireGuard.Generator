@@ -2,8 +2,8 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-    Client::Client() :
-        _user_name(""), _private_key("") , _public_key(""),
+    Client::Client(const std::string user_name) :
+        _user_name(user_name), _private_key("") , _public_key(""),
         _allowed_ips{"10.8.0.0/32"}, _DNS("8.8.8.8"),
         _endpoint("pfs-solutions.ddns.net:51820"),_persistent_keepalive("20")
     { }
@@ -18,9 +18,19 @@ namespace PFSWireGuardGeneratorCore
         return _private_key;
     }
 
+    void Client::setPrivateKey(const std::string& private_key)
+    {
+        _private_key = private_key;
+    }
+
     std::string Client::getPublicKey() const
     {
         return _public_key;
+    }
+
+    void Client::setPublicKey(const std::string& public_key)
+    {
+        _public_key = public_key;
     }
 
     std::string Client::getServerPublicKey() const
