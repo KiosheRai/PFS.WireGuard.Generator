@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Models/Client.hpp"
 
 namespace PFSWireGuardGeneratorCore
@@ -11,6 +12,11 @@ namespace PFSWireGuardGeneratorCore
     std::string Client::getUserName() const
     {
         return _user_name;
+    }
+
+    void Client::setUserName(const std::string& user_name)
+    {
+        _user_name = user_name;
     }
 
     std::string Client::getPrivateKey() const
@@ -68,12 +74,43 @@ namespace PFSWireGuardGeneratorCore
         return _DNS;
     }
 
+    void Client::setDNS(const std::string& DNS)
+    {
+        _DNS = DNS;
+    }
+
     std::string Client::getEndpoint() const
     {
         return _endpoint;
     }
+
+    void Client::setEndpoint(const std::string& endpoint)
+    {
+        _endpoint = endpoint;
+    }
+
     std::string Client::getPersistentKeepalive() const
     {
         return _persistent_keepalive;
     }
+
+    void Client::setPersistentKeepalive(const std::string& persistent_keepalive)
+    {
+        _persistent_keepalive = persistent_keepalive;
+    }
+
+    void Client::show()
+    {
+        std::cout << "----------------------------------CLIENT------------------------------------------" << std::endl;
+        std::cout << "UserName-> " << getUserName() << std::endl;
+        std::cout << "PublicKey-> " << getPublicKey() << std::endl;
+        std::cout << "PrivateKey-> " << getPrivateKey() << std::endl;
+        std::cout << "Address-> " << getAddress() << std::endl;
+        std::cout << "DNS-> " << getDNS() << std::endl;
+        std::cout << "AllowedIPs-> " << getAllowedIps().back() << std::endl;
+        std::cout << "Endpoint-> " << getEndpoint() << std::endl;
+        std::cout << "PersistentKeepalive-> " << getPersistentKeepalive() << std::endl << std::endl;
+        std::cout << "-----------------------------------------------------------------------------------" << std::endl;
+    }
+
 }

@@ -6,7 +6,7 @@
 
 namespace PFSWireGuardGeneratorCore
 {
-    std::string FileIO::getTextFromFile(const char* file_name)
+    std::string FileIO::getTextFromFile(const char* file_name, std::string path)
     {
         std::ifstream in(file_name, std::ios::binary);
 
@@ -27,9 +27,9 @@ namespace PFSWireGuardGeneratorCore
         }
     }
 
-    void FileIO::writeBlockToFile(const char* file_name, Block& block)
+    void FileIO::writeBlockToFile( Block& block, const char* file_name, std::string path)
     {
-        if (!std::filesystem::exists(file_name))
+        if (!std::filesystem::exists(path + file_name))
         {
             std::cerr << "FILE WRITE ERROR! File does not exist: " << file_name << std::endl;
             throw std::ios_base::failure("File does not exist: " + std::string(file_name));

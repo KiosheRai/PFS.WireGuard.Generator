@@ -19,15 +19,22 @@ int main(int argc, char* argv[])
     server.addClient(client1);
     server.addClient(client2);
 
-    if(Configurator::configureServerToFile(server.getName() + "Config.txt", server))
+    if(Configurator::configureServerToFile(server, server.getName() + "Config.txt"))
         std::cout << server.getName() + "Config.txt file created."<< std::endl;
 
-    if(Configurator::configureClientToFile(client0.getUserName() + "Config.txt", client0))
+    if(Configurator::configureClientToFile(client0, client0.getUserName() + "Config.txt"))
         std::cout << client0.getUserName() + "Config.txt file created."<< std::endl;
-    if(Configurator::configureClientToFile(client1.getUserName() + "Config.txt", client1))
+    if(Configurator::configureClientToFile(client1, client1.getUserName() + "Config.txt"))
         std::cout << client1.getUserName() + "Config.txt file created."<< std::endl;
-    if(Configurator::configureClientToFile(client2.getUserName() + "Config.txt", client2))
+    if(Configurator::configureClientToFile(client2, client2.getUserName() + "Config.txt"))
         std::cout << client1.getUserName() + "Config.txt file created."<< std::endl;
+
+    auto cl = Configurator::getClient(client0.getUserName() + "Config.txt");
+    cl.show();
+
+    auto serv = Configurator::getServer(server.getName() + "Config.txt");
+    serv.show();
+
 
     return 0;
  }
