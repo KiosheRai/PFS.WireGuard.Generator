@@ -11,6 +11,12 @@ set(CORE_PUBLIC_INCLUDES
     includes/Configurator/Block.hpp
     includes/Configurator/FileIO.hpp
 
+    includes/CommandAdapter/Command.hpp
+    includes/CommandAdapter/BashCommand.hpp
+    includes/CommandAdapter/CmdCommand.hpp
+    includes/CommandAdapter/AdapterAPI.hpp
+
+    includes/Common/StringExtentions.hpp
 
     includes/ExportLibrary/PFSWGGeneratorCoreExport.hpp
     includes/ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp
@@ -24,6 +30,12 @@ set(CORE_PRIVATE_SOURCES
     src/Configurator/Parser.cpp
     src/Configurator/Block.cpp
     src/Configurator/FileIO.cpp
+
+    src/CommandAdapter/BashCommand.cpp
+    src/CommandAdapter/CmdCommand.cpp
+    src/CommandAdapter/AdapterAPI.cpp
+
+    src/Common/StringExtentions.cpp
 
     src/ExportLibrary/PFSWireGuardGeneratorCoreAPI.cpp
     src/ExportLibrary/dllmain.cpp

@@ -20,10 +20,11 @@ namespace PFSWireGuardGeneratorCore
             catch(const std::ios_base::failure& e)
             {
                 std::cerr << "Exception: " << e.what() << std::endl;
+                return false;
             }
         }
 
-        return 1;
+        return true;
     }
 
     bool Configurator::configureServerToFile(const std::string& file_name,const Server& server)
@@ -41,11 +42,11 @@ namespace PFSWireGuardGeneratorCore
             catch(const std::ios_base::failure& e)
             {
                 std::cerr << "Exception: " << e.what() << std::endl;
-                return 0;
+                return false;
             }
         }
 
-        return 1;
+        return true;
     }
 
     bool Configurator::getBlocksFromClientFile()
