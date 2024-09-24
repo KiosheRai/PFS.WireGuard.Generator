@@ -35,6 +35,5 @@ int main(int argc, char* argv[])
     auto serv = Configurator::getServer(server.getName() + "Config.txt");
     serv.show();
 
-
     return 0;
  }
