@@ -27,12 +27,24 @@ namespace PFSWireGuardGeneratorCore
             void setAddress(const std::string address);
 
             std::string getListenPort() const;
+            void setListenPort(const std::string& listen_port);
+
             std::vector<std::string> getPostUps() const;
+            void setPostUps(const std::vector<std::string>& post_ups);
+
             std::vector<std::string> getPreDowns() const;
+            void setPretDowns(const std::vector<std::string>& pre_downs);
 
             const std::vector<Client>& getClients() const;
             void setClients(std::vector<Client>& clietns);
+
             void addClient(Client& client);
+
+            asio::ip::address_v4 getLastIp() const;
+            std::string getLastIpToString() const;
+            void setSLastIp(const std::string& last_ip);
+
+            void show();
 
         private:
             std::string _server_name;
@@ -41,7 +53,7 @@ namespace PFSWireGuardGeneratorCore
 
             std::string _address;
 
-            asio::ip::address_v4 _start_ip;
+            asio::ip::address_v4 _last_ip;
             std::string incrementIP();
 
             std::string _listen_port;

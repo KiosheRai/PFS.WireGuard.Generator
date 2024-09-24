@@ -16,6 +16,7 @@ namespace PFSWireGuardGeneratorCore
             Client(const std::string user_name);
 
             std::string getUserName() const;
+            void setUserName(const std::string& user_name);
 
             std::string getPrivateKey() const;
             void setPrivateKey(const std::string& private_key);
@@ -33,9 +34,15 @@ namespace PFSWireGuardGeneratorCore
             void setAllowedIps(std::vector<std::string>& allowed_ips);
 
             std::string getDNS() const;
+            void setDNS(const std::string& DNS);
 
             std::string getEndpoint() const;
+            void setEndpoint(const std::string& endpoint);
+
             std::string getPersistentKeepalive() const;
+            void setPersistentKeepalive(const std::string& persistent_keepalive);
+
+            void show();
 
         private:
             std::string _user_name;

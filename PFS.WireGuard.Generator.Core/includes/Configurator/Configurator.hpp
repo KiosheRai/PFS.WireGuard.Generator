@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-
 #include "Configurator/FileIO.hpp"
 #include "Configurator/Parser.hpp"
 #include "Models/Server.hpp"
@@ -14,11 +11,11 @@ namespace PFSWireGuardGeneratorCore
         public:
             Configurator() = delete;
 
-            static bool configureClientToFile(const std::string& file_name,const Client& client);
-            static bool configureServerToFile(const std::string& file_name,const Server& server);
+            static bool configureClientToFile(const Client& client, const std::string& file_name, const std::string& path = "");
+            static bool configureServerToFile(const Server& server, const std::string& file_name, const std::string& path = "");
 
-            static bool getBlocksFromClientFile();
-            static bool getBlocksFromServerFile();
+            static const Client getClient(const std::string& file_name, const std::string& path = "");
+            static const Server getServer(const std::string& file_name, const std::string& path = "");
 
         private:
     };
