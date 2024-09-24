@@ -1,12 +1,18 @@
+#include <QApplication>
 #include <iostream>
 
+#include "MainWindow.h"
 #include "ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp"
 
 using namespace PFSWireGuardGeneratorCore;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    Client client0("User1"), client1("User2"), client2("User3");
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    PFSWireGuardGeneratorCore::Client client0("User1"), client1("User2"), client2("User3");
 
     client0 = AdapterAPI::configure(client0);
     client1 = AdapterAPI::configure(client1);
@@ -35,6 +41,5 @@ int main(int argc, char* argv[])
     auto serv = Configurator::getServer(server.getName() + "Config.txt");
     serv.show();
 
-
-    return 0;
- }
+    return a.exec();
+}
