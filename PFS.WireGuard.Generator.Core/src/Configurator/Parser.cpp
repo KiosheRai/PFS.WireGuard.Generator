@@ -1,7 +1,7 @@
-#include "Configurator/Parser.hpp"
-
 #include <sstream>
 #include <iostream>
+
+#include "Configurator/Parser.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {

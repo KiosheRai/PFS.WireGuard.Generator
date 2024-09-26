@@ -1,8 +1,8 @@
-#include "Configurator/FileIO.hpp"
-
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+
+#include "Configurator/FileIO.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
