@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "MainWindow.h"
+#include <iostream>
 #include "ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp"
 
 using namespace PFSWireGuardGeneratorCore;
@@ -11,6 +12,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
+
+    std::cout << argv[0] << std::endl;
 
     PFSWireGuardGeneratorCore::Client client0("User1"), client1("User2"), client2("User3");
 
