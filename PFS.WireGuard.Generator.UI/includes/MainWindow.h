@@ -1,6 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
+#include <QComboBox>
+#include <QCompleter>
+#include <QStringListModel>
+#include <QVBoxLayout>
+#include <QWidget>
+#include <QApplication>
 
 #include "ExportLibrary/PFSWireGuardGeneratorCoreAPI.hpp"
 
@@ -19,20 +25,30 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_edit_button_clicked(bool& is_editing);
 
     void on_edit_button_clicked();
 
-    void on_clients_combo_box_currentIndexChanged(int index);
-
-    void on_delete_button_clicked(bool checked);
+    void on_delete_button_clicked(int active_tab);
 
     void on_delete_button_clicked();
+
+    void on_add_client_button_clicked();
+
+    void on_save_button_clicked(int active_tab);
+
+    void on_save_button_clicked();
+
+    void on_cancel_button_clicked();
+
+    void on_cancel_button_clicked(int active_tab);
+
+    void on_clients_combo_box_activated(int index);
 
 private:
     Ui::MainWindow *ui;
     PFSWireGuardGeneratorCore::Server _server;
-    bool _is_editing;
-    bool _is_client_selected;
+
+    QComboBox* _clients_combo_box;
+    QStringList _clients_list;
 };
 #endif // MAINWINDOW_H

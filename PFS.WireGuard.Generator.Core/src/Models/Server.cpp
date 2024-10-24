@@ -13,6 +13,8 @@ namespace PFSWireGuardGeneratorCore
         _clients{}
     { }
 
+    Server& Server::operator= (const Server& server) noexcept = default;
+
     std::string Server::getName() const
     {
         return _server_name;
@@ -86,6 +88,28 @@ namespace PFSWireGuardGeneratorCore
     const std::vector<Client>& Server::getClients() const
     {
         return _clients;
+    }
+
+    Client& Server::getClientByIndex(int index)
+    {
+        if(index < 0 || index > _clients.size())
+        {
+            std::cerr << "Wrong index" << std::endl;
+            throw std::ios_base::failure("Failed to return client by index");
+        }
+
+        return _clients[index];
+    }
+
+    void Server::deleteClientByIndex(int index)
+    {
+        if(index < 0 || index > _clients.size())
+        {
+            std::cerr << "Wrong index" << std::endl;
+            throw std::ios_base::failure("Failed to return client by index");
+        }
+
+        _clients.erase(_clients.begin() + index);
     }
 
     void Server::setClients(std::vector<Client>& clietns)
