@@ -4,8 +4,6 @@
 
 using namespace PFSWireGuardGeneratorCore;
 
-#define API_KEY_FOR_NASA_COMPUTERS = "6abd3869bb05a402431f76c7ff57ae17b7a9fb730dfc46c36e421855683b5861"; //TODO: remove
-
 void initializeServer(Server& server, Ui::MainWindow* ui);
 void initializeClients(const Server& server,QStringList& clients_list, QComboBox *clients_combo_box);
 void initializeClient(const Client& client, Ui::MainWindow* ui);
@@ -31,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->save_button->hide();
     ui->cancel_button->hide();
 
+    Configurator::configureServerToFile(_server, _server.getName() + ".conf");
     initializeServer(_server, ui);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -42,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent)
 
         initializeClients(_server, _clients_list, _clients_combo_box);
     }
-
-    //PFSWireGuardGeneratorCore::Configurator::configureServerToFile(_server, _server.getName() + ".conf");
 }
 
 MainWindow::~MainWindow()
@@ -184,7 +181,6 @@ void MainWindow::on_clients_combo_box_activated(int index)
     Client& client = _server.getClientByIndex(index);
     initializeClient(client, ui);
 }
-
 
 void MainWindow::on_delete_button_clicked(int active_tab)
 {

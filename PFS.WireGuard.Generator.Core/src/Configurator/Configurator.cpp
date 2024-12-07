@@ -108,7 +108,7 @@ namespace PFSWireGuardGeneratorCore
 
                 for(size_t i = 1; i < server_blocks.size(); i++)
                 {
-                    std::string file_name = server_blocks[i].getProps()[0].second + "Config.txt";
+                    std::string file_name = server_blocks[i].getProps()[0].second + ".conf";
                     Client temp = getClient(file_name);
 
                     server.addClient(temp);
