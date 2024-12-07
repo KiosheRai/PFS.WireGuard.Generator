@@ -50,9 +50,9 @@ message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 message(STATUS "CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
 
 if (WIN32)
-    set(UI_BINARY_DIR "/bin")
+    set(UI_BINARY_DIR "${CMAKE_BINARY_DIR}/bin")
 else()
-    set(UI_BINARY_DIR "$/bin")
+    set(UI_BINARY_DIR "${CMAKE_BINARY_DIR}/bin")
 endif()
 
 add_custom_command(TARGET ${CORE_PROJECT_NAME} POST_BUILD

@@ -13,6 +13,7 @@ namespace PFSWireGuardGeneratorCore
         public:
             Server() = delete;
             Server(const std::string server_name);
+            Server& operator= (const Server& server) noexcept;
 
             std::string getName() const;
             void setName(const std::string& server_name);
@@ -36,6 +37,9 @@ namespace PFSWireGuardGeneratorCore
             void setPretDowns(const std::vector<std::string>& pre_downs);
 
             const std::vector<Client>& getClients() const;
+            Client& getClientByIndex(int index);
+
+            void deleteClientByIndex(int index);
             void setClients(std::vector<Client>& clietns);
 
             void addClient(Client& client);

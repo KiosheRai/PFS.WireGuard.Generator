@@ -24,7 +24,7 @@ namespace PFSWireGuardGeneratorCore
 
 			const std::string _SUDOER_PREFIX = "sudo";
 			const std::string _GENERATE_PRIVATE_KEY = "echo PRIVATE_KEY-{1}, {0}";
-			//"{0} wg genkey | {0} tee /etc/wireguard/{1}/private.key\n{0} chmod go= /etc/wireguard/{1}/private.key";
+            //"{0} wg genkey | cd /etc/wireguard | mkdir /etc/wireguard/{1} |{0} tee /etc/wireguard/{1}/private.key\n{0} chmod go= /etc/wireguard/{1}/private.key";
 			const std::string _GENERATE_PUBLIC_KEY = "echo PUBLIC_KEY-{1}, {0}";
 			//"{0} cat /etc/wireguard/{1}/private.key | wg pubkey | {0} tee /etc/wireguard/{1}/public.key";
 	};

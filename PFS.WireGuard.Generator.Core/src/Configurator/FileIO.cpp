@@ -8,7 +8,7 @@ namespace PFSWireGuardGeneratorCore
 {
     std::string FileIO::getTextFromFile(const char* file_name, std::string path)
     {
-        std::ifstream in(file_name, std::ios::binary);
+        std::ifstream in(path + file_name, std::ios::binary);
 
         if (in.is_open())
         {
