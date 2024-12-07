@@ -2,6 +2,7 @@
 
 #include "Configurator/Configurator.hpp"
 #include "CommandAdapter/AdapterAPI.hpp"
+#include "Models/Server.hpp"
 
 namespace PFSWireGuardGeneratorCoreAPI
 {

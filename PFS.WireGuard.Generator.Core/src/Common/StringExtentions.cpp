@@ -1,8 +1,8 @@
-#include "Common/StringExtentions.hpp"
-
 #include <string>
 #include <vector>
 #include <regex>
+
+#include "Common/StringExtentions.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {

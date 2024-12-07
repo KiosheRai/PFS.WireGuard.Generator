@@ -4,8 +4,6 @@
 
 #include "Common/StringExtentions.hpp"
 
-
-
 namespace PFSWireGuardGeneratorCore
 {
     class PFSWGGENERATORCORE_API Command
