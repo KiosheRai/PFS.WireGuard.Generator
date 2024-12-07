@@ -117,6 +117,15 @@ namespace PFSWireGuardGeneratorCore
         _clients = std::move(clietns);
     }
 
+    std::string Server::getNextFreeIP()
+    {
+        uint32_t ip_num = _last_ip.to_uint();
+        ip_num++;
+        asio::ip::address_v4 new_ip(ip_num);
+
+        return new_ip.to_string();
+    }
+
     std::string Server::incrementIP()
     {
         uint32_t ip_num = _last_ip.to_uint();

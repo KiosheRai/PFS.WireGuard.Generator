@@ -1,11 +1,10 @@
-#include <errno.h>
-#include <fstream>
 #include <iostream>
 
 #include "Configurator/Configurator.hpp"
 #include "Configurator/FileIO.hpp"
 #include "Configurator/Parser.hpp"
 #include "Models/Server.hpp"
+#include "CommandAdapter/AdapterAPI.hpp"
 
 namespace PFSWireGuardGeneratorCore
 {
@@ -95,6 +94,7 @@ namespace PFSWireGuardGeneratorCore
             if(server_blocks.size() >= 1)
             {
                 server.setName(interface_block.getProps()[0].second);
+                server = AdapterAPI::configure(server);
                 server.setPrivateKey(interface_block.getProps()[1].second);
                 server.setAddress(interface_block.getProps()[2].second);
                 server.setListenPort(interface_block.getProps()[3].second);
@@ -111,6 +111,7 @@ namespace PFSWireGuardGeneratorCore
                     std::string file_name = server_blocks[i].getProps()[0].second + ".conf";
                     Client temp = getClient(file_name);
 
+                    temp = AdapterAPI::configure(temp);
                     server.addClient(temp);
                 }
 
@@ -119,6 +120,16 @@ namespace PFSWireGuardGeneratorCore
                 throw std::runtime_error("CLIENT FILE IS CORRUPTED!");
 
             return server;
+        }
+
+        bool deleteClientFileImpl(const std::string& file_name, const std::string& path)
+        {
+            return FileIO::deleteFile(file_name, path);
+        }
+
+        bool renameClietnFileImpl(const std::string& old_name, const std::string& new_name, const std::string& path)
+        {
+            return FileIO::renameClientFile(old_name, new_name);
         }
     };
 
@@ -142,5 +153,15 @@ namespace PFSWireGuardGeneratorCore
     const Server Configurator::getServer(const std::string& file_name, const std::string& path)
     {
         return _impl->getServerImpl(file_name, path);
+    }
+
+    bool Configurator::deleteClientFile(const std::string& file_name, const std::string& path)
+    {
+        return _impl->deleteClientFileImpl(file_name, path);
+    }
+
+    bool Configurator::renameClientFile(const std::string& old_name, const std::string& new_name, const std::string& path)
+    {
+        return _impl->renameClietnFileImpl(old_name, new_name, path);
     }
 }

@@ -65,4 +65,26 @@ namespace PFSWireGuardGeneratorCore
         out.close();
         return true;
     }
+
+    bool FileIO::deleteFile(const std::string& file_name, std::string path)
+    {
+        if(!std::filesystem::remove(path + file_name))
+        {
+            std::cerr << "Error: File not found! File not deleted.";
+            return false;
+        }
+
+        return true;
+    }
+
+    bool FileIO::renameClientFile(const std::string& old_name, const std::string& new_name, const std::string& path)
+    {
+        if(std::rename(old_name.c_str(), new_name.c_str()) == 0)
+            return true;
+        else
+        {
+            perror("Error: File is not renamed!");
+            return false;
+        }
+    }
 }
