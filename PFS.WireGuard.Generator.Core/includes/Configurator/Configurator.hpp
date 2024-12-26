@@ -21,8 +21,9 @@ namespace PFSWireGuardGeneratorCore
             static const Client getClient(const std::string& file_name, const std::string& path = "");
             static const Server getServer(const std::string& file_name, const std::string& path = "");
 
-            static bool deleteClientFile(const std::string& file_name, const std::string& path = "");
-            static bool renameClientFile(const std::string& old_name, const std::string& new_name, const std::string& path = "");
+            static bool deleteDirectory(const std::string& path);
+            static bool renameFile(const std::string& old_name, const std::string& new_name, const std::string& path = "");
+            static bool renameDirectory(const std::string& old_name, const std::string& new_name, const std::string& path = "");
 
         private:
             struct Impl;

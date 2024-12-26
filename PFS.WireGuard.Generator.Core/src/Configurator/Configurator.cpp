@@ -94,8 +94,8 @@ namespace PFSWireGuardGeneratorCore
             if(server_blocks.size() >= 1)
             {
                 server.setName(interface_block.getProps()[0].second);
-                server = AdapterAPI::configure(server);
-                server.setPrivateKey(interface_block.getProps()[1].second);
+                server.setPrivateKey(FileIO::getTextFromFile("private.key", "/etc/wireguard/" + server.getName() + "/"));
+                server.setPublicKey(FileIO::getTextFromFile("public.key", "/etc/wireguard/" + server.getName() + "/"));
                 server.setAddress(interface_block.getProps()[2].second);
                 server.setListenPort(interface_block.getProps()[3].second);
 
@@ -109,9 +109,9 @@ namespace PFSWireGuardGeneratorCore
                 for(size_t i = 1; i < server_blocks.size(); i++)
                 {
                     std::string file_name = server_blocks[i].getProps()[0].second + ".conf";
-                    Client temp = getClient(file_name);
-
-                    temp = AdapterAPI::configure(temp);
+                    Client temp = getClient(file_name, "/etc/wireguard/" + server_blocks[i].getProps()[0].second + "/");
+                    temp.setPrivateKey(FileIO::getTextFromFile("private.key", "/etc/wireguard/" + temp.getUserName() + "/"));
+                    temp.setPublicKey(FileIO::getTextFromFile("public.key", "/etc/wireguard/" + temp.getUserName() + "/"));
                     server.addClient(temp);
                 }
 
@@ -122,14 +122,19 @@ namespace PFSWireGuardGeneratorCore
             return server;
         }
 
-        bool deleteClientFileImpl(const std::string& file_name, const std::string& path)
+        bool deleteDirectoryImpl(const std::string& path)
         {
-            return FileIO::deleteFile(file_name, path);
+            return FileIO::deleteDirectory(path);
         }
 
-        bool renameClietnFileImpl(const std::string& old_name, const std::string& new_name, const std::string& path)
+        bool renameFileImpl(const std::string& old_name, const std::string& new_name, const std::string& path)
         {
-            return FileIO::renameClientFile(old_name, new_name);
+            return FileIO::renameFile(old_name, new_name, path);
+        }
+
+        bool renameDirectoryImpl(const std::string& old_name, const std::string& new_name, const std::string& path)
+        {
+            return FileIO::renameDirectory(old_name, new_name, path);
         }
     };
 
@@ -155,13 +160,18 @@ namespace PFSWireGuardGeneratorCore
         return _impl->getServerImpl(file_name, path);
     }
 
-    bool Configurator::deleteClientFile(const std::string& file_name, const std::string& path)
+    bool Configurator::deleteDirectory(const std::string& path)
     {
-        return _impl->deleteClientFileImpl(file_name, path);
+        return _impl->deleteDirectoryImpl(path);
     }
 
-    bool Configurator::renameClientFile(const std::string& old_name, const std::string& new_name, const std::string& path)
+    bool Configurator::renameFile(const std::string& old_name, const std::string& new_name, const std::string& path)
     {
-        return _impl->renameClietnFileImpl(old_name, new_name, path);
+        return _impl->renameFileImpl(old_name, new_name, path);
+    }
+
+    bool Configurator::renameDirectory(const std::string& old_name, const std::string& new_name, const std::string& path)
+    {
+        return _impl->renameDirectoryImpl(old_name, new_name, path);
     }
 }
