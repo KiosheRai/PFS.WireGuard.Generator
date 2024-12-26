@@ -20,6 +20,7 @@ void blockServerFields(Ui::MainWindow* ui);
 void unblockClientFields(Ui::MainWindow* ui);
 void unblockServerFields(Ui::MainWindow* ui);
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), _server("MainServer"),
     _clients_combo_box(nullptr), _clients_list {}
@@ -29,7 +30,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->save_button->hide();
     ui->cancel_button->hide();
 
-    Configurator::configureServerToFile(_server, _server.getName() + ".conf");
+    //Сделать первый конфигуратор для сервера
+    //_server = AdapterAPI::configure(_server);
+    Configurator::configureServerToFile(_server, _server.getName() + ".conf", "/etc/wireguard/" + _server.getName() + "/");
+
     initializeServer(_server, ui);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -50,7 +54,7 @@ MainWindow::~MainWindow()
 
 void initializeServer(Server& server, Ui::MainWindow* ui)
 {
-    server = PFSWireGuardGeneratorCore::Configurator::getServer("MainServer.conf");
+    server = PFSWireGuardGeneratorCore::Configurator::getServer(server.getName() + ".conf", "/etc/wireguard/" + server.getName() + "/");
     ui->server_name_text_box->setText(QString::fromStdString(server.getName()));
     ui->server_addres_text_box->setText(QString::fromStdString(server.getAddress()));
     ui->server_listen_port_text_box->setText(QString::fromStdString(server.getListenPort()));
@@ -65,7 +69,6 @@ void initializeServer(Server& server, Ui::MainWindow* ui)
 
 void initializeClients(const Server& server, QStringList& clients_list, QComboBox *clients_combo_box)
 {
-
     clients_list.clear();
     clients_combo_box->clear();
 
@@ -171,9 +174,30 @@ void unblockServerFields(Ui::MainWindow* ui)
     ui->server_pre_downs_text_box->setReadOnly(false);
 }
 
-void MainWindow::on_edit_button_clicked()
+void MainWindow::on_edit_button_clicked(int active_tab)
 {
     showEditButtons(ui);
+    is_editing = true;
+    ui->add_client_button->setEnabled(false);
+
+    switch (active_tab)
+    {
+    case 0:
+        ui->clients_tab->setEnabled(false);
+        unblockServerFields(ui);
+        break;
+    case 1:
+        unblockClientFields(ui);
+        ui->server_tab->setEnabled(false);
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::on_edit_button_clicked()
+{
+    on_edit_button_clicked(ui->info_tabs->currentIndex());
 }
 
 void MainWindow::on_clients_combo_box_activated(int index)
@@ -186,7 +210,6 @@ void MainWindow::on_delete_button_clicked(int active_tab)
 {
     switch (active_tab)
     {
-
     case 0:
 
         break;
@@ -197,15 +220,18 @@ void MainWindow::on_delete_button_clicked(int active_tab)
             QString deleted_user_name = QString::fromStdString(_server.getClientByIndex(current_index).getUserName());
 
             _server.deleteClientByIndex(current_index);
+            Configurator::deleteDirectory("/etc/wireguard/" + deleted_user_name.toStdString() + "/");
 
-            QMessageBox::information(this, "Delete", deleted_user_name + " is deleted.");
+            QMessageBox::information(this, "Delete", deleted_user_name + " files is deleted.");
 
             clearClientFields(ui);
 
-            PFSWireGuardGeneratorCore::Configurator::configureServerToFile(_server,"MainServer.conf");
+            Configurator::configureServerToFile(_server, _server.getName() + ".conf", "/etc/wireguard/" + _server.getName() + "/");
 
             initializeServer(_server, ui);
             initializeClients(_server, _clients_list, _clients_combo_box);
+
+            ui->add_client_button->setEnabled(true);
         }
         break;
     default:
@@ -227,7 +253,7 @@ void MainWindow::on_add_client_button_clicked()
 
     PFSWireGuardGeneratorCore::Client client("");
 
-    _server.addClient(client);
+    client.setAddress(_server.getNextFreeIP() + "/32");
 
     clearClientFields(ui);
     initializeClient(client, ui);
@@ -237,18 +263,41 @@ void MainWindow::on_add_client_button_clicked()
 
 void MainWindow::on_save_button_clicked(int active_tab)
 {
-    Client& current_client = _server.getClientByIndex(_server.getClients().size() - 1);
+    Client tmp("TMP");
+
+    Client& current_client = is_editing ? _server.getClientByIndex(ui->clients_combo_box->currentIndex())
+                                        : tmp;
 
     switch (active_tab)
     {
     case 0:
         break;
     case 1:
-        current_client.setUserName(ui->client_user_name_text_box->toPlainText().toStdString());
+        if (is_editing)
+        {
+            Configurator::renameFile(current_client.getUserName() + ".conf",
+                                           ui->client_user_name_text_box->toPlainText().toStdString() + ".conf",
+                                            "/etc/wireguard/" + current_client.getUserName() + "/");
+            Configurator::renameDirectory(current_client.getUserName(), ui->client_user_name_text_box->toPlainText().toStdString(),
+                                          "/etc/wireguard/");
 
-        PFSWireGuardGeneratorCore::Configurator::configureServerToFile(_server,"MainServer.conf");
-        PFSWireGuardGeneratorCore::Configurator::configureClientToFile(current_client,
-                                                                       current_client.getUserName() + ".conf");
+            current_client.setUserName(ui->client_user_name_text_box->toPlainText().toStdString());
+            current_client.setAddress(ui->client_address_text_box->toPlainText().toStdString());
+        }
+        else
+        {
+            current_client.setUserName(ui->client_user_name_text_box->toPlainText().toStdString());
+            current_client.setDNS(ui->client_DNS_text_box->toPlainText().toStdString());
+            current_client.setEndpoint(ui->client_endpoint_text_box->toPlainText().toStdString());
+            current_client.setPersistentKeepalive(ui->client_persistent_keepalive_text_box->toPlainText().toStdString());
+
+            current_client = AdapterAPI::configure(current_client);
+
+            _server.addClient(current_client);
+        }
+
+        Configurator::configureServerToFile(_server, _server.getName() + ".conf", "/etc/wireguard/" + _server.getName() + "/");
+        Configurator::configureClientToFile(current_client, current_client.getUserName() + ".conf", "/etc/wireguard/" + current_client.getUserName() + "/");
 
         hideEditButtons(ui);
 
@@ -259,6 +308,10 @@ void MainWindow::on_save_button_clicked(int active_tab)
 
         initializeServer(_server, ui);
         initializeClients(_server, _clients_list, _clients_combo_box);
+
+        is_editing = false;
+
+        ui->add_client_button->setEnabled(true);
 
         break;
     default:
@@ -285,7 +338,6 @@ void MainWindow::on_cancel_button_clicked(int active_tab)
 
         break;
     case 1:
-        _server.deleteClientByIndex(_server.getClients().size() - 1);
         clearClientFields(ui);
 
         hideEditButtons(ui);
@@ -294,9 +346,14 @@ void MainWindow::on_cancel_button_clicked(int active_tab)
         ui->add_client_button->setEnabled(true);
 
         initializeClients(_server, _clients_list, _clients_combo_box);
+
+        is_editing = false;
+
+        ui->add_client_button->setEnabled(true);
         break;
     default:
         break;
     }
 }
+
 

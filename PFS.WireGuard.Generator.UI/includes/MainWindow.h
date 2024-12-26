@@ -26,6 +26,8 @@ public:
 
 private slots:
 
+    void on_edit_button_clicked(int active_tab);
+
     void on_edit_button_clicked();
 
     void on_delete_button_clicked(int active_tab);
@@ -44,11 +46,15 @@ private slots:
 
     void on_clients_combo_box_activated(int index);
 
+
+
 private:
     Ui::MainWindow *ui;
     PFSWireGuardGeneratorCore::Server _server;
 
     QComboBox* _clients_combo_box;
     QStringList _clients_list;
+
+    bool is_editing = false;
 };
 #endif // MAINWINDOW_H

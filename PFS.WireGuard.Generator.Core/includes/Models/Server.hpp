@@ -47,6 +47,7 @@ namespace PFSWireGuardGeneratorCore
             asio::ip::address_v4 getLastIp() const;
             std::string getLastIpToString() const;
             void setSLastIp(const std::string& last_ip);
+            std::string getNextFreeIP();
 
             void show();
 
